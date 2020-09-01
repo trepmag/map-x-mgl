@@ -69,6 +69,8 @@ services:
       - 8882:8080
     volumes:
       - ./_shared/geoserver:/shared/geoserver
+    depends_on:
+      - pg
     labels:
       - traefik.frontend.rule=Host:geoserver.mapx.localhost
   pg:
