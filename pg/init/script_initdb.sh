@@ -43,6 +43,7 @@ Aborting."
 init_db_mapx() {
   cat /docker-entrypoint-initdb.d/sql_files/*.sql | psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" -f -
   createdb -T "$POSTGRES_DB" "mapx_test"
+  createdb "gscatalog" # Used by GeoServer JDBCConfig module
 }
 
 # Executes the main routine.

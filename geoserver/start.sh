@@ -29,16 +29,16 @@ echo ${updateCred} > ${GEOSERVER_DATA_DIR}/security/usergroup/default/users.xml
 # Setup jdbcconfig
 #
 echo "Setup jdbcconfig"
-ls -al /geoserver/data_dir/jdbcconfig
 if [ ! -d "${GEOSERVER_DATA_DIR}/jdbcconfig/" ]; then
   cp -a /geoserver/data_dir/jdbcconfig ${GEOSERVER_DATA_DIR}/
 fi
-JDBCURL_ESCAPED=`echo $GEOSERVER_JDBCURL | sed -E 's/([&\/])/\\\\\1/g'`
+JDBC_URL_ESCAPED=`echo $GEOSERVER_JDBC_URL | sed -E 's/([&\/])/\\\\\1/g'`
 GEOSERVER_JDBC_USERNAME=postgres
 GEOSERVER_JDBC_PASSWORD=$POSTGRES_PASSWORD
 JDBC_USERNAME_ESCAPED=`echo $GEOSERVER_JDBC_USERNAME | sed -E 's/([&\/])/\\\\\1/g'`
 JDBC_PASSWORD_ESCAPED=`echo $GEOSERVER_JDBC_PASSWORD | sed -E 's/([&\/])/\\\\\1/g'`
-sed -i 's/^jdbcUrl=.*$/jdbcUrl='${JDBCURL_ESCAPED}'/' ${GEOSERVER_DATA_DIR}/jdbcconfig/jdbcconfig.properties
+sed -i 's/^enabled=.*$/enabled='${GEOSERVER_JDBC_ENABLE}'/' ${GEOSERVER_DATA_DIR}/jdbcconfig/jdbcconfig.properties
+sed -i 's/^jdbcUrl=.*$/jdbcUrl='${JDBC_URL_ESCAPED}'/' ${GEOSERVER_DATA_DIR}/jdbcconfig/jdbcconfig.properties
 sed -i 's/^username=.*$/username='${JDBC_USERNAME_ESCAPED}'/' ${GEOSERVER_DATA_DIR}/jdbcconfig/jdbcconfig.properties
 sed -i 's/^password=.*$/password='${JDBC_PASSWORD_ESCAPED}'/' ${GEOSERVER_DATA_DIR}/jdbcconfig/jdbcconfig.properties
 
